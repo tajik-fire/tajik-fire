@@ -243,7 +243,7 @@
 
     <div class="container">
         <div class="task-details">
-            <h2>Масъалаи 2</h2>
+            <h2>Масъалаи 3</h2>
             <pr class="task-details">
             </div>
             </pr>
@@ -277,8 +277,8 @@
         </form>
         
     </div>
-    <div id="copy-success-msg">Успешно скопировано</div>
-    <div id="notification" class="notification">Вы успешно отправили код. Пожалуйста, дождитесь перенаправления на страницу вердикта.</div>
+    <div id="copy-success-msg">Бо муваффакият нусхабардорӣ шуд</div>
+    <div id="notification" class="notification">Шумо бо муваффакият равона кардед код-ро. Илтимос, мунтазир бошед.</div>
 
     <script>
        document.getElementById('file-input').addEventListener('change', function() {
@@ -303,7 +303,7 @@
         document.getElementById('upload-button').classList.add('loading');
 
         document.getElementById('notification').classList.add('show');
-        fetch('https://gimron34-b473cd9e-bfb8-45c0-a153-06c888b9c177.socketxp.com/upload', {
+        fetch('http://127.0.0.1:3000/upload', {
             method: 'POST',
             body: formData
         })
@@ -311,7 +311,7 @@
         .then(data => {
             if (data.result == 1) {
                 setTimeout(function() {
-                    window.location.href = "my_submit.html";
+                    window.location.href = "my_submit1.html";
                     document.getElementById('notification').classList.remove('show');
                     document.getElementById('upload-button').classList.remove('loading');
                 }, 2700); // Перенаправление через 3 секунды (3000 миллисекунд)
@@ -360,7 +360,7 @@
         var formData = new FormData();
         formData.append('langg', langg);
         formData.append('number_task', number_task);
-        fetch('https://gimron34-b473cd9e-bfb8-45c0-a153-06c888b9c177.socketxp.com/get_task_description1', {
+        fetch('http://127.0.0.1:3000/get_task_description1', {
             method: 'POST',
             body: formData
         })

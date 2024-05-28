@@ -202,7 +202,7 @@
         <h2 class="style_data">17.04.2024</h2>
         <p class="news-font1">Сайт уже почти...</p>
 
-        <p class="news-font" id="news1Full" style="display: none;">Сайт уже почти на пуСайт уже почти на пути к успеху, Следим за новостями!!!Сайт уже почти на пути к успеху, Следим за новостями!!!Сайт уже почти на пути к успеху, Следим за новостями!!!Сайт уже почти на пути к успеху, Следим за новостями!!!Сайт уже почти на пути к успеху, Следим за новостями!!!Сайт уже почти на пути к успеху, Следим за новостями!!!Сайт уже почти на пути к успеху, Следим за новостями!!!ти к успеху, Следим за новостями!!!</p>
+        <p class="news-font" id="news1Full" style="display: none;">Сайт уже почти на пути к успеху, Следим за новостями !!! </p>
         <button class="show-btn" onclick="showFullText('news1')">
             <img src="icons/show_more.png" alt="Иконка показать"> 
         </button>
@@ -225,7 +225,7 @@
         </button>
     </div>
 </div>
-<script>fetch('https://gimron34-b473cd9e-bfb8-45c0-a153-06c888b9c177.socketxp.com/get_news')
+<script>fetch('http://127.0.0.1:3000/get_news')
     .then(response => response.json()) // Преобразуем ответ в формат JSON
     .then(newsData => {
         const newsContainer = document.querySelector('.container');

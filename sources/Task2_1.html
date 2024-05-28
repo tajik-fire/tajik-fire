@@ -286,8 +286,8 @@ YES
         </form>
         
     </div>
-    <div id="copy-success-msg">Успешно скопировано</div>
-    <div id="notification" class="notification">Вы успешно отправили код. Пожалуйста, дождитесь перенаправления на страницу вердикта.</div>
+    <div id="copy-success-msg">Бо муваффакият нусхабардорӣ шуд</div>
+    <div id="notification" class="notification">Шумо бо муваффакият равона кардед код-ро. Илтимос, мунтазир бошед.</div>
 
     <script>
        document.getElementById('file-input').addEventListener('change', function() {
@@ -320,7 +320,7 @@ YES
         .then(data => {
             if (data.result == 1) {
                 setTimeout(function() {
-                    window.location.href = "my_submit.html";
+                    window.location.href = "my_submit1.html";
                     document.getElementById('upload-button').classList.remove('loading');
                     document.getElementById('notification').classList.remove('show');
 

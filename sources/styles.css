@@ -250,7 +250,7 @@
         cursor: pointer;
         position: absolute;
         top: 70px; /* Переместили кнопку ниже */
-        right: 70px;
+        right: 73px;
         transform: translateX(50%); /* Центрируем кнопку по горизонтали */
     }
 

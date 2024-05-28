@@ -256,13 +256,13 @@
             </li>
         </ul>
     </header>
-    <h1 style="text-align: center; color: white;">Ҷустуҷӯи кӯтоҳтарин роҳҳо байни шаҳрҳои Тоҷикистон </h1>
+    <h1 style="text-align: center; color: white;">Дар ҷустуҷӯи авлоди бойтарин </h1>
     <div id="userLogin" class="user-login"></div>
     <button onclick="showLanguagePopup()" class="language-btn">Интихоби забон</button>
 
     <div class="container">
         <div class="task-details">
-            <h2>Масъалаи 6</h2>
+            <h2>Масъалаи 7</h2>
             <pr class="task-details">
             </div>
             </pr>
@@ -270,16 +270,22 @@
             <h3>Намуна: <br>
                 <button onclick="copyToClipboard('input-data')">нусхабардории маълумоти воридотӣ</button>
                 <pre id="input-data">
-4 3 2
-1 2 5
-1 3 9
-2 4 6
-1 4
-2 3 </pre>
+5
+50 40 30 20 10
+1 2
+1 3
+2 4
+2 5
+3
+1
+2
+3
+3 </pre>
             <button onclick="copyToClipboard('output-data')">Нусхабардорӣ маълумоти баромад</button>
             <pre id="output-data">
-11
-14</pre>
+1 50
+2 40
+3 30</pre>
             </h3>
         </div>
         <h1>Фиристодани файл</h1>
@@ -316,7 +322,7 @@
 
         var formData = new FormData();
         formData.append('file', document.getElementById('file-input').files[0]);
-        formData.append('x', 5);
+        formData.append('x', 6);
         formData.append('login', userLogin);
 
         document.getElementById('upload-button').classList.add('loading');
@@ -373,7 +379,7 @@
 
         }
         var langg = 2;
-        var number_task = 6; 
+        var number_task = 7; 
         var formData = new FormData();
         formData.append('langg', langg);
         formData.append('number_task', number_task);
@@ -400,16 +406,16 @@
         var redirectUrl;
         switch (language) {
             case 'english':
-                redirectUrl = 'Task6_2.html';
+                redirectUrl = 'Task7_2.html';
                 break;
             case 'russian':
-                redirectUrl = 'Task6.html';
+                redirectUrl = 'Task7.html';
                 break;
             case 'tajik':
-                redirectUrl = 'Task6_1.html';
+                redirectUrl = 'Task7_1.html';
                 break;
             default:
-                redirectUrl = 'Task6.html'; 
+                redirectUrl = 'Task7.html'; 
         }
         window.location.href = redirectUrl;
     }

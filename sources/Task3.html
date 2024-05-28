@@ -300,7 +300,7 @@
         document.getElementById('upload-button').classList.add('loading');
 
         document.getElementById('notification').classList.add('show');
-        fetch('https://gimron34-b473cd9e-bfb8-45c0-a153-06c888b9c177.socketxp.com/upload', {
+        fetch('http://127.0.0.1:3000/upload', {
             method: 'POST',
             body: formData
         })
@@ -355,7 +355,7 @@
         var formData = new FormData();
         formData.append('langg', langg);
         formData.append('number_task', number_task);
-        fetch('https://gimron34-b473cd9e-bfb8-45c0-a153-06c888b9c177.socketxp.com/get_task_description1', {
+        fetch('http://127.0.0.1:3000/get_task_description1', {
             method: 'POST',
             body: formData
         })

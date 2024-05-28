@@ -9,7 +9,6 @@ queue_lock = threading.Lock()
 
 # Создаем очередь для управления запросами
 request_queue = deque()
-number_last_submit = 1
 app = Flask(__name__)
 CORS(app)
 app.static_folder = 'static'
@@ -20,6 +19,8 @@ name_task[2] = 'Полёт Мухамммада'
 name_task[3] = 'Багаж Мухаммада'
 name_task[4] = 'Традиционные блюда Таджикистана'
 name_task[5] = 'Поиск кратчайшего пути между городами Таджикистана'
+name_task[6] = 'Поиск самого богатого потомка'
+name_task[7] = 'Путешествие по лесу'
 def run_cpp_code(cpp_file, cpp_file_o, cpp_file_ans):
   #  cpp_file = '/home/imeon/Project_Olympiad/CheckProblems/Debugging/zapuskator.cpp'
   #  cpp_file_o = '/home/imeon/Project_Olympiad/CheckProblems/Debugging/zapuskator'
@@ -53,6 +54,7 @@ def process_next_request():
 # Функция для обработки запроса
 def process_request(request_data):
     ip_address = request_data['ip_address']
+    login = ip_address
     file_path = "/home/imeon/Project_Olympiad/Submissions/"
     file = request_data['file']
     timee = request_data['timestamp']
@@ -71,15 +73,6 @@ def process_request(request_data):
     with open(file_path + number_submit + '.txt', 'w') as output_file:
         output_file.write(file + '\n' + '\n' + '\n')
 
-    login = ''
-    with open('/home/imeon/Project_Olympiad/online_users/online.txt', 'r') as file:
-        f = file.readline()
-        while ip_address not in f:
-            f = file.readline()
-        p1 = f
-    ind = p1.index('%')
-    ind1 = p1.index('%', ind + 1)
-    login = p1[ind + 1:ind1]
     p = run_cpp_code(cpp_file, cpp_file_o, cpp_file_ans)
     if name == '':name = 0
     name = int(name)
@@ -90,17 +83,24 @@ from datetime import datetime
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    global number_last_submit
+    
+    with open ('/home/imeon/Project_Olympiad/ls_submit.txt', 'r') as ss:
+        number_last_submit = int(ss.readline())
+
     ip_address = request.remote_addr
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     name = request.form.get('x')  # Получение значения x из FormData
     # Добавляем запрос в очередь для последующей обработки
     file = request.files['file']
     content = file.read().decode('utf-8')
-    
+    login = request.cookies.get("saved_name")
+
     with queue_lock:
-        request_queue.append({'number_submit':number_last_submit,'timestamp': timestamp, 'ip_address': ip_address, 'file': content, 'name': name})
+        request_queue.append({'number_submit':number_last_submit,'timestamp': timestamp, 'ip_address': login, 'file': content, 'name': name})
         number_last_submit += 1
+    with open ('/home/imeon/Project_Olympiad/ls_submit.txt', 'w') as ss:
+        ss.write(str(number_last_submit))
+
     return jsonify({'result': 1}), 200
 
 @app.route('/login', methods=["POST"])
@@ -135,7 +135,6 @@ def login_user():
 @app.route('/get_login')
 def get_login():
     login = request.cookies.get("saved_name")
-    print(login)
     return jsonify({"login": login})
 
 @app.route('/register', methods=['POST'])
@@ -166,39 +165,20 @@ def get_code():
     return jsonify({'code': code})
 
 
+@app.route('/logout')
 def logout():
     ip_address = request.remote_addr
-    f = ''
-    p = []
-    with open('/home/imeon/Project_Olympiad/online_users/online.txt', 'r') as file:
-        f = file.readline()
-        while f != '':
-            if ip_address not in f:
-                p += [f]
-            f = file.readline()
-    with open('/home/imeon/Project_Olympiad/online_users/online.txt', 'w') as file:
-        file.write('')
-    with open('/home/imeon/Project_Olympiad/online_users/online.txt', 'a') as file:
-        for i in p:
-            file.write('\n' + i)
-    response = make_response('File cleared successfully')
+    response = make_response(jsonify({"result": "Logged out"}))
     response.set_cookie('saved_name', '', expires=0)
     return response
+
 @app.route('/get_packages', methods=['GET'])
 def get_packages():
     login = ''
     ip_address = request.remote_addr
-
-    with open('/home/imeon/Project_Olympiad/online_users/online.txt', 'r') as file:
-        f = file.readline()
-        while ip_address not in f:
-            f = file.readline()
-        p1 = f
-    ind = p1.index('%')
-    ind1 = p1.index('%', ind + 1)
-    login = p1[ind + 1:ind1]
     packages_data = []
-    login += '.txt'
+
+    login = request.cookies.get("saved_name") + '.txt'
     with open('/home/imeon/Project_Olympiad/logins_submit/' + login, 'a+') as ss:
         ss.seek(0)
         x = ss.readline()
